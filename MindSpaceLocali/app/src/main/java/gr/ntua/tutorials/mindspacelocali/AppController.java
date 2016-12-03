@@ -11,8 +11,13 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -104,5 +109,86 @@ public class AppController extends Application implements GoogleApiClient.Connec
 
     public Location getmLastLocation() {
         return mLastLocation;
+    }
+
+    private RequestQueue mRequestQueue;
+    private RequestQueue photoRequestQueue;
+    private ImageLoader mImageLoader;
+    private RequestQueue photoRequestQueue1;
+    private ImageLoader mImageLoader1;
+
+    public RequestQueue getRequestQueue() {
+        if (mRequestQueue == null) {
+            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+
+
+        return mRequestQueue;
+    }
+
+    public RequestQueue getPhotoRequestQueue() {
+        if (photoRequestQueue == null) {
+            photoRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+        return photoRequestQueue;
+    }
+
+    public RequestQueue getPhotoRequestQueue1() {
+        if (photoRequestQueue1 == null) {
+            photoRequestQueue1 = Volley.newRequestQueue(getApplicationContext());
+        }
+        return photoRequestQueue;
+    }
+
+    public ImageLoader getImageLoader() {
+        getPhotoRequestQueue();
+        if (mImageLoader == null) {
+            mImageLoader = new ImageLoader(this.photoRequestQueue,
+                    new LruBitmapCache());
+        }
+        return this.mImageLoader;
+    }
+
+    public ImageLoader getImageLoader1() {
+        getPhotoRequestQueue1();
+        if (mImageLoader1 == null) {
+            mImageLoader1 = new ImageLoader(this.photoRequestQueue1,
+                    new LruBitmapCache());
+        }
+        return this.mImageLoader1;
+    }
+
+    public <T> void addToRequestQueue(Request<T> req, String tag) {
+        // set the default tag if tag is empty
+        req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
+        getRequestQueue().add(req);
+    }
+
+    public <T> void addToPhotoRequestQueue(Request<T> req, String tag) {
+        // set the default tag if tag is empty
+        req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
+        getPhotoRequestQueue().add(req);
+    }
+
+    public <T> void addToRequestQueue(Request<T> req) {
+        req.setTag(TAG);
+        getRequestQueue().add(req);
+    }
+
+    public <T> void addToPhotoRequestQueue(Request<T> req) {
+        req.setTag(TAG);
+        getPhotoRequestQueue().add(req);
+    }
+
+    public void cancelPendingRequests() {
+        if (mRequestQueue != null) {
+            mRequestQueue.cancelAll(TAG);
+        }
+    }
+
+    public void cancelPendingPhotoRequests() {
+        if (photoRequestQueue != null) {
+            photoRequestQueue.cancelAll(TAG);
+        }
     }
 }

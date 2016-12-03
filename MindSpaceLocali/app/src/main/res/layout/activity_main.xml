@@ -10,8 +10,40 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="gr.ntua.tutorials.mindspacelocali.MainActivity">
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/username"
+        android:hint="Username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:maxLines="1"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/password"
+        android:layout_below="@+id/username"
+        android:hint="Password"
+        android:layout_centerHorizontal="true"
+        android:maxLines="1"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/login"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:text="Login"
+       />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/signup"
+        android:layout_below="@+id/login"
+        android:layout_centerHorizontal="true"
+        android:text="Sign Up"/>
+
 </RelativeLayout>

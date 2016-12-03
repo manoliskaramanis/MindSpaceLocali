@@ -3,6 +3,7 @@
     package="gr.ntua.tutorials.mindspacelocali">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name=".AppController"
         android:allowBackup="true"
@@ -17,6 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SignupActivity"></activity>
     </application>
 
 </manifest>
