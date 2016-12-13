@@ -19,6 +19,34 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignupActivity"></activity>
+
+        <service
+            android:name=".YestService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="test" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".LocationUpdates"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="locUpdates" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".DeviceBootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".AlarmManagerService" />
+
     </application>
 
 </manifest>

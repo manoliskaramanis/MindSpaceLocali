@@ -151,4 +151,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent servIntent = new Intent(this, LocationUpdates.class);
+        startService(servIntent);
+    }
 }
